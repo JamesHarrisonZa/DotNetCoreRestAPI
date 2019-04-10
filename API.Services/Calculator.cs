@@ -2,12 +2,13 @@
 
 namespace API.Services
 {
-    public class Calculator
-    {
-        public decimal GetGst()
-        {
-            //ToDo
-            return 42m;
-        }
-    }
+	public class Calculator
+	{
+		private decimal _gstPercentage = 15m;
+
+		public decimal GetGst(decimal totalIncludingGst)
+		{
+			return totalIncludingGst * (_gstPercentage/100);
+		}
+	}
 }
