@@ -10,7 +10,7 @@ namespace Tests
 		[TestCase(1024.01, 153.6015)]
 		public void GetGst(decimal totalIncludingGst, decimal expected)
 		{
-			var calculator = new Calculator();
+			var calculator = CreateSut();
 			var actual = calculator.GetGst(totalIncludingGst);
 			Assert.AreEqual(expected, actual);
 		}
@@ -19,9 +19,13 @@ namespace Tests
 		[TestCase(1024.01, 153.6015, 870.4085)]
 		public void GetTotalExcludingGst(decimal totalIncludingGst, decimal gst, decimal expected)
 		{
-			var calculator = new Calculator();
+			var calculator = CreateSut();
 			var actual = calculator.GetTotalExcludingGst(totalIncludingGst, gst);
 			Assert.AreEqual(expected, actual);
+		}
+
+		private Calculator CreateSut(){
+			return new Calculator();
 		}
 	}
 }
