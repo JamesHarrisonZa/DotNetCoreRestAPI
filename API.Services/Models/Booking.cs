@@ -9,9 +9,9 @@ namespace API.Services.Models
 		public string PaymentMethod { get; set; }
 		public string Vendor { get; set; }
 		public string Description { get; set; }
-		public DateTime Date { get; set; }
+		public string Date { get; set; }
 
-		public Booking(string costCentre, decimal total, string paymentMethod, string vendor, string description, DateTime date)
+		public Booking(string costCentre, decimal total, string paymentMethod, string vendor, string description, string date)
 		{
 			CostCentre = costCentre;
 			Total = total;
