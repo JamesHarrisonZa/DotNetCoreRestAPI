@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using API.Services;
 
 namespace API.Controllers
 {
@@ -11,18 +8,18 @@ namespace API.Controllers
 	public class GstController : ControllerBase
 	{
 		[HttpPost]
-		public ActionResult<string> Post([FromBody] string value)
+		public ActionResult<string> Post([FromBody] string text)
 		{
-			// 1: Extract XML content based on <tags>
-				// if (hasNonMatchingTags) return rejected message
-				// if (missingTotal) return rejected message
-				// if (missingCostCentre) then the field in the output should be defaulted to ‘UNKNOWN’. 
-			// 2: Calculate the GST and total excluding GST. The extracted <total> includes GST. 
-				// GST = total * (15/100)
-				// TotalExcludingGST = total - GST 
-			// 3: Return extracted + calculated info
-
-			return value;
+            // 1: Extract XML content based on <tags>
+            var emailParser = new EmailParser();
+            var booking = emailParser.GetBooking(text);
+            // 2: Calculate the GST and total excluding GST. The extracted <total> includes GST. 
+            var calculator = new Calculator();
+            var gst = calculator.GetGst(booking.Total);
+            var totalExcludingGst = calculator.GetTotalExcludingGst(booking.Total, gst);
+            // 3: Return extracted + calculated info
+            //ToDo: return json object with all the info
+            return $"gst: {gst}, totalExcludingGst: {totalExcludingGst}";
 		}
 	}
 }
