@@ -24,7 +24,8 @@ namespace Tests
 			Assert.AreEqual(expected, actual);
 		}
 
-		private Calculator CreateSut(){
+		private Calculator CreateSut()
+		{
 			return new Calculator();
 		}
 	}
