@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using API.Services;
+using Newtonsoft.Json;
 
 namespace API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class GstController : ControllerBase
+	public class BookingController : ControllerBase
 	{
 		[HttpPost]
 		public ActionResult<string> Post([FromBody] string text)
@@ -19,7 +20,9 @@ namespace API.Controllers
             var totalExcludingGst = calculator.GetTotalExcludingGst(booking.Total, gst);
             // 3: Return extracted + calculated info
             //ToDo: return json object with all the info
-            return $"gst: {gst}, totalExcludingGst: {totalExcludingGst}";
-		}
+            var bookingJson = JsonConvert.SerializeObject(booking);
+            //return $"gst: {gst}, totalExcludingGst: {totalExcludingGst}";
+            return bookingJson;
+        }
 	}
 }
