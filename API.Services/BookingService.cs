@@ -2,12 +2,12 @@
 
 namespace API.Services
 {
-    public class Booking
+    public class BookingService
     {
         public DetailBooking GetDetailBooking(string email)
         {
-            var emailParser = new EmailParser();
-            var emailBooking = emailParser.GetEmailBooking(email);
+            var emailParser = new EmailParser(email);
+            var emailBooking = emailParser.GetEmailBooking();
 
             var calculator = new Calculator();
             var gst = calculator.GetGst(emailBooking.Total);
