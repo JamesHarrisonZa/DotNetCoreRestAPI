@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
 using API.Services;
-using Newtonsoft.Json;
+using API.Services.Exceptions;
 
 namespace API.Controllers
 {
@@ -11,8 +12,15 @@ namespace API.Controllers
 		[HttpPost]
 		public ActionResult<string> Post([FromBody] string text)
 		{
-            var detailBooking = new BookingService().GetDetailBooking(text);
-            return JsonConvert.SerializeObject(detailBooking);
+            try
+            {
+                var detailBooking = new BookingService().GetDetailBooking(text);
+                return JsonConvert.SerializeObject(detailBooking);
+            }
+            catch (InvalidMessageException ex)
+            {
+                return ex.Message;
+            }
         }
 	}
 }
