@@ -4,6 +4,7 @@ using API.Services.Tests.Helpers;
 
 namespace API.Services.Tests
 {
+    [TestFixture]
     public class EmailParserTests
     {
         [TestCase(@"
