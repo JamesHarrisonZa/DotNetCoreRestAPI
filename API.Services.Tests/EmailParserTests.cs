@@ -58,6 +58,14 @@ namespace API.Services.Tests
             Assert.Throws<InvalidMessageException>(() => sut.GetEmailBooking());
         }
 
+        [TestCase("<cost_centre><total>42</total>")]
+        [TestCase("<cost_centre></cost_centre><total>42</total><vendor>")]
+        public void GetEmailBooking_WithNonMatchingTags_Should_Throw_InvalidMessageException(string email)
+        {
+            var sut = CreateSut(email);
+            Assert.Throws<InvalidMessageException>(() => sut.GetEmailBooking());
+        }
+
         private EmailParser CreateSut(string email)
         {
             return new EmailParser(email);

@@ -32,7 +32,8 @@ namespace API.Services
 
             if (IsMissingBothTags(startIndex, endIndex))
                 return "";
-            //ToDo: HasNonMatchingTags
+            if(HasNonMatchingTags(startIndex, endIndex))
+                throw new InvalidMessageException($"Missing opening or closing tag. Either {openingTag} or {closingTag}");
 
             return searchText.Substring(startIndex + openingTag.Length, endIndex - (startIndex + openingTag.Length));
         }
@@ -67,6 +68,13 @@ namespace API.Services
         private bool IsMissingBothTags(int startIndex, int endIndex)
         {
             return startIndex == -1 && endIndex == -1;
+        }
+
+        private bool HasNonMatchingTags(int startIndex, int endIndex)
+        {
+            if (!IsMissingBothTags(startIndex, endIndex) && (startIndex == -1 || endIndex == -1))
+                return true;
+            return false;
         }
     }
 }
