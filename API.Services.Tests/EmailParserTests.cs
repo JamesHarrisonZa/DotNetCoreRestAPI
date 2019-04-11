@@ -27,11 +27,11 @@ namespace API.Services.Tests
 		Please create a reservation at the <vendor>Viaduct Steakhouse</vendor> our <description>development team’s project end celebration dinner</description> on <date>Thursday 27 April 2017</date>.
 		"
         , "DEV002", 1024.01, "personal card", "Viaduct Steakhouse", "development team’s project end celebration dinner", "Thursday 27 April 2017")]
-        public void GetValidBooking(string email, string costCentre, decimal total, string paymentMethod, string vendor, string description, string date)
+        public void GetEmailBooking(string email, string costCentre, decimal total, string paymentMethod, string vendor, string description, string date)
         {
             var sut = CreateSut();
-            var actual = sut.GetBooking(email);
-            var expected = new Booking(costCentre, total, paymentMethod, vendor, description, date);
+            var actual = sut.GetEmailBooking(email);
+            var expected = new EmailBooking(costCentre, total, paymentMethod, vendor, description, date);
 
             var structuralEqualityComparer = new StructuralEqualityComparer();
             Assert.That(actual, Is.EqualTo(expected).Using(structuralEqualityComparer));

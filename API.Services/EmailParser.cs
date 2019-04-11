@@ -5,11 +5,12 @@ namespace API.Services
 {
 	public class EmailParser
 	{
+        //ToDo:
 		// if (hasNonMatchingTags) return rejected message
 		// if (missingTotal) return rejected message
 		// if (missingCostCentre) then the field in the output should be defaulted to ‘UNKNOWN’. 
 
-		public Booking GetBooking(string email)
+		public EmailBooking GetEmailBooking(string email)
 		{
             var costCentre = GetBetweenTags(email, "<cost_centre>", "</cost_centre>");
             var total = Convert.ToDecimal(GetBetweenTags(email, "<total>", "</total>"));
@@ -18,7 +19,7 @@ namespace API.Services
             var description = GetBetweenTags(email, "<description>", "</description>");
             var date = GetCheckedDate(GetBetweenTags(email, "<date>", "</date>"));
 
-            return new Booking(costCentre, total, paymentMethod, vendor, description, date);
+            return new EmailBooking(costCentre, total, paymentMethod, vendor, description, date);
 		}
 
         private string GetBetweenTags(string searchText, string openingTag, string closingTag)

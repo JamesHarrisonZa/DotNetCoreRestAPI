@@ -11,18 +11,8 @@ namespace API.Controllers
 		[HttpPost]
 		public ActionResult<string> Post([FromBody] string text)
 		{
-            // 1: Extract XML content based on <tags>
-            var emailParser = new EmailParser();
-            var booking = emailParser.GetBooking(text);
-            // 2: Calculate the GST and total excluding GST. The extracted <total> includes GST. 
-            var calculator = new Calculator();
-            var gst = calculator.GetGst(booking.Total);
-            var totalExcludingGst = calculator.GetTotalExcludingGst(booking.Total, gst);
-            // 3: Return extracted + calculated info
-            //ToDo: return json object with all the info
-            var bookingJson = JsonConvert.SerializeObject(booking);
-            //return $"gst: {gst}, totalExcludingGst: {totalExcludingGst}";
-            return bookingJson;
+            var detailBooking = new Booking().GetDetailBooking(text);
+            return JsonConvert.SerializeObject(detailBooking);
         }
 	}
 }
