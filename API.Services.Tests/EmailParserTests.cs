@@ -29,17 +29,17 @@ namespace API.Services.Tests
         , "DEV002", 1024.01, "personal card", "Viaduct Steakhouse", "development team’s project end celebration dinner", "Thursday 27 April 2017")]
         public void GetEmailBooking(string email, string costCentre, decimal total, string paymentMethod, string vendor, string description, string date)
         {
-            var sut = CreateSut();
-            var actual = sut.GetEmailBooking(email);
+            var sut = CreateSut(email);
+            var actual = sut.GetEmailBooking();
             var expected = new EmailBooking(costCentre, total, paymentMethod, vendor, description, date);
 
             var structuralEqualityComparer = new StructuralEqualityComparer();
             Assert.That(actual, Is.EqualTo(expected).Using(structuralEqualityComparer));
         }
 
-        private EmailParser CreateSut()
+        private EmailParser CreateSut(string email)
         {
-            return new EmailParser();
+            return new EmailParser(email);
         }
     }
 }

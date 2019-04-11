@@ -11,7 +11,7 @@ namespace API.Controllers
 		[HttpPost]
 		public ActionResult<string> Post([FromBody] string text)
 		{
-            var detailBooking = new Booking().GetDetailBooking(text);
+            var detailBooking = new BookingService().GetDetailBooking(text);
             return JsonConvert.SerializeObject(detailBooking);
         }
 	}

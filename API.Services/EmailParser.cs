@@ -5,19 +5,25 @@ namespace API.Services
 {
 	public class EmailParser
 	{
-        //ToDo:
-		// if (hasNonMatchingTags) return rejected message
-		// if (missingTotal) return rejected message
-		// if (missingCostCentre) then the field in the output should be defaulted to ‘UNKNOWN’. 
+        private string _email;
 
-		public EmailBooking GetEmailBooking(string email)
+        public EmailParser(string email) {
+            _email = email;
+        }
+
+        //ToDo:
+        // if (hasNonMatchingTags) return rejected message
+        // if (missingTotal) return rejected message
+        // if (missingCostCentre) then the field in the output should be defaulted to ‘UNKNOWN’. 
+
+        public EmailBooking GetEmailBooking()
 		{
-            var costCentre = GetBetweenTags(email, "<cost_centre>", "</cost_centre>");
-            var total = Convert.ToDecimal(GetBetweenTags(email, "<total>", "</total>"));
-			var paymentMethod = GetBetweenTags(email, "<payment_method>", "</payment_method>");
-            var vendor = GetBetweenTags(email, "<vendor>", "</vendor>");
-            var description = GetBetweenTags(email, "<description>", "</description>");
-            var date = GetCheckedDate(GetBetweenTags(email, "<date>", "</date>"));
+            var costCentre = GetBetweenTags(_email, "<cost_centre>", "</cost_centre>");
+            var total = Convert.ToDecimal(GetBetweenTags(_email, "<total>", "</total>"));
+			var paymentMethod = GetBetweenTags(_email, "<payment_method>", "</payment_method>");
+            var vendor = GetBetweenTags(_email, "<vendor>", "</vendor>");
+            var description = GetBetweenTags(_email, "<description>", "</description>");
+            var date = GetCheckedDate(GetBetweenTags(_email, "<date>", "</date>"));
 
             return new EmailBooking(costCentre, total, paymentMethod, vendor, description, date);
 		}
