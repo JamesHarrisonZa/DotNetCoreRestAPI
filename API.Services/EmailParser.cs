@@ -1,4 +1,5 @@
 ﻿using System;
+using API.Services.Exceptions;
 using API.Services.Models;
 
 namespace API.Services
@@ -10,17 +11,12 @@ namespace API.Services
         public EmailParser(string email) {
             _email = email;
         }
-
-        //ToDo:
-        // if (missingTotal) return rejected message
-        // if (missingCostCentre) then the field in the output should be defaulted to ‘UNKNOWN’.
-        // if (hasNonMatchingTags) return rejected message
-
+        
         //ToDo: Probably make the tags configurable
         public EmailBooking GetEmailBooking()
 		{
             var costCentre = GetCheckedCostCentre(GetBetweenTags(_email, "<cost_centre>", "</cost_centre>"));
-            var total = Convert.ToDecimal(GetBetweenTags(_email, "<total>", "</total>"));
+            var total = GetCheckedTotal(GetBetweenTags(_email, "<total>", "</total>"));
 			var paymentMethod = GetBetweenTags(_email, "<payment_method>", "</payment_method>");
             var vendor = GetBetweenTags(_email, "<vendor>", "</vendor>");
             var description = GetBetweenTags(_email, "<description>", "</description>");
@@ -46,6 +42,14 @@ namespace API.Services
             if (string.IsNullOrEmpty(costCentre))
                 return "UNKNOWN";
             return costCentre;
+        }
+
+        private decimal GetCheckedTotal(string total)
+        {
+            if (string.IsNullOrEmpty(total))
+                throw new InvalidMessageException("Missing <total>");
+
+            return Convert.ToDecimal(total);
         }
 
         //My interpretation as the example contained an invalid date but wasnt a part of the failure conditions.

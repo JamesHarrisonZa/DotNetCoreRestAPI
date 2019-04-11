@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using API.Services.Models;
+using API.Services.Exceptions;
 using API.Services.Tests.Helpers;
 
 namespace API.Services.Tests
@@ -48,6 +49,13 @@ namespace API.Services.Tests
 
             var structuralEqualityComparer = new StructuralEqualityComparer();
             Assert.That(actual, Is.EqualTo(expected).Using(structuralEqualityComparer));
+        }
+
+        [TestCase("<totallyNotATotal>42</totallyNotATotal>")]
+        public void GetEmailBooking_WithMissingTotal_Should_Throw_InvalidMessageException(string email)
+        {
+            var sut = CreateSut(email);
+            Assert.Throws<InvalidMessageException>(() => sut.GetEmailBooking());
         }
 
         private EmailParser CreateSut(string email)
