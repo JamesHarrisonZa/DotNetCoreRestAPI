@@ -38,6 +38,18 @@ namespace API.Services.Tests
             Assert.That(actual, Is.EqualTo(expected).Using(structuralEqualityComparer));
         }
 
+        [TestCase("<total>42</total>", 42)]
+        [TestCase("<cost_centre></cost_centre><total>42</total>", 42)]
+        public void GetEmailBooking_WithMissingCostCentre_Should_DefaultFieldTo_UNKNOWN(string email, decimal total)
+        {
+            var sut = CreateSut(email);
+            var actual = sut.GetEmailBooking();
+            var expected = new EmailBooking("UNKNOWN", total, "", "", "", "");
+
+            var structuralEqualityComparer = new StructuralEqualityComparer();
+            Assert.That(actual, Is.EqualTo(expected).Using(structuralEqualityComparer));
+        }
+
         private EmailParser CreateSut(string email)
         {
             return new EmailParser(email);
