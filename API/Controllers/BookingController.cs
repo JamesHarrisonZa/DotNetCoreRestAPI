@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using API.Services;
 using API.Services.Models;
 
 namespace API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class BookingController : ControllerBase
 	{

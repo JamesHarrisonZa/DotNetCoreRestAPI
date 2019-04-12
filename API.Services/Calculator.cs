@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace API.Services
+﻿namespace API.Services
 {
-	public class Calculator
+    public class Calculator
 	{
 		private const decimal _gstPercentage = 15m; //ToDo: Consider making configurable.
 
