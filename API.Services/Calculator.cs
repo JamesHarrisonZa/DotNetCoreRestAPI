@@ -4,7 +4,7 @@ namespace API.Services
 {
 	public class Calculator
 	{
-		private decimal _gstPercentage = 15m; //ToDo: Potentially make configurable? Inject into constructor?
+		private const decimal _gstPercentage = 15m; //ToDo: Consider making configurable.
 
 		public decimal GetGst(decimal totalIncludingGst)
 		{
