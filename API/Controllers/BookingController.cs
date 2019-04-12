@@ -8,10 +8,17 @@ namespace API.Controllers
 	[ApiController]
 	public class BookingController : ControllerBase
 	{
-		[HttpPost]
+        private readonly IBookingService _bookingService;
+
+        public BookingController(IBookingService bookingService)
+        {
+            _bookingService = bookingService;
+        }
+
+        [HttpPost]
 		public ActionResult<DetailBooking> Post([FromBody] string text)
 		{
-            return new BookingService().GetDetailBooking(text);
+            return _bookingService.GetDetailBooking(text);
         }
 	}
 }

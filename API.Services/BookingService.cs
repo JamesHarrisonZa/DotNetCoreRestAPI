@@ -2,7 +2,7 @@
 
 namespace API.Services
 {
-    public class BookingService
+    public class BookingService : IBookingService
     {
         public DetailBooking GetDetailBooking(string email)
         {
