@@ -2,8 +2,8 @@
 
 namespace API.Services
 {
-    public interface IEmailParser
-    {
-        EmailBooking GetEmailBooking(string email);
-    }
+	public interface IEmailParser
+	{
+		EmailBooking GetEmailBooking(string email);
+	}
 }

@@ -2,8 +2,8 @@
 
 namespace API.Services
 {
-    public interface IBookingService
-    {
-        DetailBooking GetDetailBooking(string email);
-    }
+	public interface IBookingService
+	{
+		DetailBooking GetDetailBooking(string email);
+	}
 }
