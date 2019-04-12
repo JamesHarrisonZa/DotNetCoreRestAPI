@@ -31,8 +31,8 @@ namespace API.Services.Tests
         , "DEV002", 1024.01, "personal card", "Viaduct Steakhouse", "development team’s project end celebration dinner", "Thursday 27 April 2017")]
         public void GetEmailBooking(string email, string costCentre, decimal total, string paymentMethod, string vendor, string description, string date)
         {
-            var sut = CreateSut(email);
-            var actual = sut.GetEmailBooking();
+            var sut = CreateSut();
+            var actual = sut.GetEmailBooking(email);
             var expected = new EmailBooking(costCentre, total, paymentMethod, vendor, description, date);
 
             var structuralEqualityComparer = new StructuralEqualityComparer();
@@ -43,8 +43,8 @@ namespace API.Services.Tests
         [TestCase("<cost_centre></cost_centre><total>42</total>", 42)]
         public void GetEmailBooking_WithMissingCostCentre_Should_DefaultFieldTo_UNKNOWN(string email, decimal total)
         {
-            var sut = CreateSut(email);
-            var actual = sut.GetEmailBooking();
+            var sut = CreateSut();
+            var actual = sut.GetEmailBooking(email);
             var expected = new EmailBooking("UNKNOWN", total, "", "", "", "");
 
             var structuralEqualityComparer = new StructuralEqualityComparer();
@@ -54,21 +54,21 @@ namespace API.Services.Tests
         [TestCase("<totallyNotATotal>42</totallyNotATotal>")]
         public void GetEmailBooking_WithMissingTotal_Should_Throw_InvalidMessageException(string email)
         {
-            var sut = CreateSut(email);
-            Assert.Throws<InvalidMessageException>(() => sut.GetEmailBooking());
+            var sut = CreateSut();
+            Assert.Throws<InvalidMessageException>(() => sut.GetEmailBooking(email));
         }
 
         [TestCase("<cost_centre><total>42</total>")]
         [TestCase("<cost_centre></cost_centre><total>42</total><vendor>")]
         public void GetEmailBooking_WithNonMatchingTags_Should_Throw_InvalidMessageException(string email)
         {
-            var sut = CreateSut(email);
-            Assert.Throws<InvalidMessageException>(() => sut.GetEmailBooking());
+            var sut = CreateSut();
+            Assert.Throws<InvalidMessageException>(() => sut.GetEmailBooking(email));
         }
 
-        private EmailParser CreateSut(string email)
+        private EmailParser CreateSut()
         {
-            return new EmailParser(email);
+            return new EmailParser();
         }
     }
 }

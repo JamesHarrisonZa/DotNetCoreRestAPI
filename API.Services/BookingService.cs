@@ -6,8 +6,8 @@ namespace API.Services
     {
         public DetailBooking GetDetailBooking(string email)
         {
-            var emailParser = new EmailParser(email);
-            var emailBooking = emailParser.GetEmailBooking();
+            var emailParser = new EmailParser();
+            var emailBooking = emailParser.GetEmailBooking(email);
 
             var calculator = new Calculator();
             var gst = calculator.GetGst(emailBooking.Total);

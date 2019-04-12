@@ -6,21 +6,15 @@ namespace API.Services
 {
 	public class EmailParser
 	{
-        private string _email;
-
-        public EmailParser(string email) {
-            _email = email;
-        }
-        
-        //ToDo: Probably make the tags configurable
-        public EmailBooking GetEmailBooking()
+        //ToDo: Consider making the tags configurable
+        public EmailBooking GetEmailBooking(string email)
 		{
-            var costCentre = GetCheckedCostCentre(GetBetweenTags(_email, "<cost_centre>", "</cost_centre>"));
-            var total = GetCheckedTotal(GetBetweenTags(_email, "<total>", "</total>"));
-			var paymentMethod = GetBetweenTags(_email, "<payment_method>", "</payment_method>");
-            var vendor = GetBetweenTags(_email, "<vendor>", "</vendor>");
-            var description = GetBetweenTags(_email, "<description>", "</description>");
-            var date = GetCheckedDate(GetBetweenTags(_email, "<date>", "</date>"));
+            var costCentre = GetCheckedCostCentre(GetBetweenTags(email, "<cost_centre>", "</cost_centre>"));
+            var total = GetCheckedTotal(GetBetweenTags(email, "<total>", "</total>"));
+			var paymentMethod = GetBetweenTags(email, "<payment_method>", "</payment_method>");
+            var vendor = GetBetweenTags(email, "<vendor>", "</vendor>");
+            var description = GetBetweenTags(email, "<description>", "</description>");
+            var date = GetCheckedDate(GetBetweenTags(email, "<date>", "</date>"));
 
             return new EmailBooking(costCentre, total, paymentMethod, vendor, description, date);
 		}
