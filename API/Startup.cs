@@ -21,6 +21,8 @@ namespace API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             //My DI
             services.AddScoped(typeof(IBookingService), typeof(BookingService));
+            services.AddScoped(typeof(IEmailParser), typeof(EmailParser));
+            services.AddScoped(typeof(ICalculator), typeof(Calculator));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

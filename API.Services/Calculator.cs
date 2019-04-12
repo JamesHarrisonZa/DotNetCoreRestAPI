@@ -1,7 +1,7 @@
 ﻿namespace API.Services
 {
-    public class Calculator
-	{
+    public class Calculator : ICalculator
+    {
 		private const decimal _gstPercentage = 15m; //ToDo: Consider making configurable.
 
 		public decimal GetGst(decimal totalIncludingGst)

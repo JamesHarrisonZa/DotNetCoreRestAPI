@@ -33,7 +33,7 @@ namespace API.Services.Tests
 
         private BookingService CreateSut()
         {
-            return new BookingService();
+            return new BookingService(new EmailParser(), new Calculator());
         }
     }
 }

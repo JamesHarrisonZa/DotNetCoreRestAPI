@@ -4,8 +4,8 @@ using API.Services.Models;
 
 namespace API.Services
 {
-	public class EmailParser
-	{
+	public class EmailParser : IEmailParser
+    {
         //ToDo: Consider making the tags configurable
         public EmailBooking GetEmailBooking(string email)
 		{
