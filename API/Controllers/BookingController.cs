@@ -12,8 +12,7 @@ namespace API.Controllers
 		[HttpPost]
 		public ActionResult<DetailBooking> Post([FromBody] string text)
 		{
-            var detailBooking = new BookingService().GetDetailBooking(text);
-            return detailBooking;
+            return new BookingService().GetDetailBooking(text);
         }
 	}
 }
